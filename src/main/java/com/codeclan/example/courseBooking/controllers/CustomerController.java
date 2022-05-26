@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
+import static java.lang.Integer.valueOf;
+
 @RestController
 public class CustomerController {
 
@@ -24,13 +26,18 @@ public class CustomerController {
 
     @GetMapping(value = "/customers")
     public ResponseEntity<List<Customer>> getRequests(@RequestParam(name = "courseName", required = false)String courseName,
-                                                      @RequestParam(name = "town", required = false)String town){
+                                                      @RequestParam(name = "town", required = false)String town,
+                                                      @RequestParam(name = "overAge", required = false)String overAge){
         if(courseName != null && town == null){
 //
             return new ResponseEntity<>(customerRepo.findByBookingsCourseName(courseName),HttpStatus.OK);
         }
-        else if(courseName != null && town != null){
+        else if(courseName != null && town != null && overAge == null){
             return new ResponseEntity<>(customerRepo.findByTownAndBookingsCourseName(town, courseName), HttpStatus.OK);
+        }
+        else if (courseName != null && town != null && overAge != null){
+            int parsedAge = valueOf(overAge);
+            return new ResponseEntity<>(customerRepo.findByTownAndBookingsCourseNameAndAgeGreaterThan(town, courseName, parsedAge), HttpStatus.OK);
         }
 
         return new ResponseEntity<>(customerRepo.findAll(), HttpStatus.OK);

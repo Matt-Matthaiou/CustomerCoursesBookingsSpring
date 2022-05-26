@@ -59,4 +59,10 @@ class CourseBookingApplicationTests {
 		List<Customer> customers = customerRepo.findByTownAndBookingsCourseName("Dundee", "Unity");
 		assertEquals(2, customers.size());
 	}
+
+	@Test
+	public void canGetCustomersOverAgeByTownAndCourseName(){
+		List<Customer> customers = customerRepo.findByTownAndBookingsCourseNameAndAgeGreaterThan("Dundee", "Unity", 40);
+		assertEquals(1, customers.size());
+	}
 }
