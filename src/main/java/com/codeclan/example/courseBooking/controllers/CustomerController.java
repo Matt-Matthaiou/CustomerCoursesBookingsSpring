@@ -3,7 +3,6 @@ package com.codeclan.example.courseBooking.controllers;
 import com.codeclan.example.courseBooking.models.Customer;
 import com.codeclan.example.courseBooking.repos.CourseRepo;
 import com.codeclan.example.courseBooking.repos.CustomerRepo;
-import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -30,14 +29,14 @@ public class CustomerController {
                                                       @RequestParam(name = "overAge", required = false)String overAge){
         if(courseName != null && town == null){
 //
-            return new ResponseEntity<>(customerRepo.findByBookingsCourseName(courseName),HttpStatus.OK);
+            return new ResponseEntity<>(customerRepo.findByBookingsCourseNameIgnoreCase(courseName),HttpStatus.OK);
         }
         else if(courseName != null && town != null && overAge == null){
-            return new ResponseEntity<>(customerRepo.findByTownAndBookingsCourseName(town, courseName), HttpStatus.OK);
+            return new ResponseEntity<>(customerRepo.findByTownIgnoreCaseAndBookingsCourseNameIgnoreCase(town, courseName), HttpStatus.OK);
         }
         else if (courseName != null && town != null && overAge != null){
             int parsedAge = valueOf(overAge);
-            return new ResponseEntity<>(customerRepo.findByTownAndBookingsCourseNameAndAgeGreaterThan(town, courseName, parsedAge), HttpStatus.OK);
+            return new ResponseEntity<>(customerRepo.findByTownIgnoreCaseAndBookingsCourseNameIgnoreCaseAndAgeGreaterThan(town, courseName, parsedAge), HttpStatus.OK);
         }
 
         return new ResponseEntity<>(customerRepo.findAll(), HttpStatus.OK);

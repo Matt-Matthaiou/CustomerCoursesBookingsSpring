@@ -8,11 +8,9 @@ import com.codeclan.example.courseBooking.repos.CourseRepo;
 import com.codeclan.example.courseBooking.repos.CustomerRepo;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.AutoConfigurationPackage;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.List;
-import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -38,13 +36,13 @@ class CourseBookingApplicationTests {
 
 	@Test
 	public void canGetAllCustomersOnAGivenCourse(){
-		List<Customer> customerList = customerRepo.findByBookingsCourseName("Unity");
+		List<Customer> customerList = customerRepo.findByBookingsCourseNameIgnoreCase("Unity");
 		assertEquals(2, customerList.size());
 	}
 
 	@Test
 	public void canGetCoursesOfSelectedCustomer(){
-		List<Course> courses = courseRepo.findByBookingsCustomerName("Bob");
+		List<Course> courses = courseRepo.findByBookingsCustomerNameIgnoreCase("Bob");
 		assertEquals(1, courses.size());
 	}
 
@@ -56,13 +54,13 @@ class CourseBookingApplicationTests {
 
 	@Test
 	public void canGetCustomersByTownAndCourseName(){
-		List<Customer> customers = customerRepo.findByTownAndBookingsCourseName("Dundee", "Unity");
+		List<Customer> customers = customerRepo.findByTownIgnoreCaseAndBookingsCourseNameIgnoreCase("Dundee", "Unity");
 		assertEquals(2, customers.size());
 	}
 
 	@Test
 	public void canGetCustomersOverAgeByTownAndCourseName(){
-		List<Customer> customers = customerRepo.findByTownAndBookingsCourseNameAndAgeGreaterThan("Dundee", "Unity", 40);
+		List<Customer> customers = customerRepo.findByTownIgnoreCaseAndBookingsCourseNameIgnoreCaseAndAgeGreaterThan("Dundee", "Unity", 40);
 		assertEquals(1, customers.size());
 	}
 }
