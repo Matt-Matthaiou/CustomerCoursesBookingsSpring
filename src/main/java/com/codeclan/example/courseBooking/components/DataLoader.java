@@ -35,7 +35,18 @@ public class DataLoader implements ApplicationRunner {
         Course course1 = new Course("Unity", "Dundee", 5);
         courseRepo.save(course1);
 
+        Course course2 = new Course("Dance", "Glasgow", 4);
+        courseRepo.save(course2);
+
+        Course course3 = new Course("Painting", "Linlithgow", 3);
+        courseRepo.save(course3);
+
+        Course course4 = new Course("Warhammer", "Edinburgh", 4);
+        courseRepo.save(course4);
+
         Booking booking1 = new Booking("26-02-2022", customer1, course1);
         bookingRepo.save(booking1);
+
+
     }
 }
