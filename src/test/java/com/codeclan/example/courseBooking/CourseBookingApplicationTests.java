@@ -41,4 +41,9 @@ class CourseBookingApplicationTests {
 		assertEquals(2, customerList.size());
 	}
 
+	@Test
+	public void canGetCoursesOfSelectedCustomer(){
+		List<Course> courses = courseRepo.findByBookingsCustomerName("Bob");
+		assertEquals(1, courses.size());
+	}
 }
