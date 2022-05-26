@@ -1,5 +1,6 @@
 package com.codeclan.example.courseBooking;
 
+import com.codeclan.example.courseBooking.models.Booking;
 import com.codeclan.example.courseBooking.models.Course;
 import com.codeclan.example.courseBooking.models.Customer;
 import com.codeclan.example.courseBooking.repos.BookingRepo;
@@ -45,5 +46,11 @@ class CourseBookingApplicationTests {
 	public void canGetCoursesOfSelectedCustomer(){
 		List<Course> courses = courseRepo.findByBookingsCustomerName("Bob");
 		assertEquals(1, courses.size());
+	}
+
+	@Test
+	public void canGetBookingsByData(){
+		List<Booking> bookings = bookingRepo.findByDate("26-02-2022");
+		assertEquals(3, bookings.size());
 	}
 }
