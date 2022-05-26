@@ -53,4 +53,10 @@ class CourseBookingApplicationTests {
 		List<Booking> bookings = bookingRepo.findByDate("26-02-2022");
 		assertEquals(3, bookings.size());
 	}
+
+	@Test
+	public void canGetCustomersByTownAndCourseName(){
+		List<Customer> customers = customerRepo.findByTownAndBookingsCourseName("Dundee", "Unity");
+		assertEquals(2, customers.size());
+	}
 }

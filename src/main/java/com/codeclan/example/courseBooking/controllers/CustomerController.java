@@ -23,11 +23,16 @@ public class CustomerController {
     CourseRepo courseRepo;
 
     @GetMapping(value = "/customers")
-    public ResponseEntity<List<Customer>> getRequests(@RequestParam(name = "courseName", required = false)String courseName){
-        if(courseName != null){
+    public ResponseEntity<List<Customer>> getRequests(@RequestParam(name = "courseName", required = false)String courseName,
+                                                      @RequestParam(name = "town", required = false)String town){
+        if(courseName != null && town == null){
 //
             return new ResponseEntity<>(customerRepo.findByBookingsCourseName(courseName),HttpStatus.OK);
         }
+        else if(courseName != null && town != null){
+            return new ResponseEntity<>(customerRepo.findByTownAndBookingsCourseName(town, courseName), HttpStatus.OK);
+        }
+
         return new ResponseEntity<>(customerRepo.findAll(), HttpStatus.OK);
     }
 }
